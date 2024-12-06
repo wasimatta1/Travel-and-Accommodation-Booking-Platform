@@ -7,4 +7,5 @@ namespace Application.Mediator.Commands
     {
         public LoginRequest LoginRequest { get; set; }
     }
+
 }

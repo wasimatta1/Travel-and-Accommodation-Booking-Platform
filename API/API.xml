@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>API</name>
+    </assembly>
+    <members>
+        <member name="M:API.Controllers.AuthController.Register(Contracts.Authentication.RegisterRequest)">
+            <summary>
+            Register a new user
+            </summary>
+            <param name="registerRequest"></param>
+            <returns></returns>
+        </member>
+    </members>
+</doc>
