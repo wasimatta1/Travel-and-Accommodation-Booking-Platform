@@ -70,6 +70,36 @@ namespace Application.Service
             return tokenHandler.WriteToken(token);
         }
 
+        public async Task<bool> ValidateRefreshToken(string token)
+        {
+            var tokenHandler = new JwtSecurityTokenHandler();
+            var key = Encoding.UTF8.GetBytes(_config["Jwt:RefreshKey"]);
 
+            try
+            {
+                tokenHandler.ValidateToken(token, new TokenValidationParameters
+                {
+                    ValidateIssuer = false,
+                    ValidateAudience = false,
+                    ValidateLifetime = false,
+                    ValidateIssuerSigningKey = true,
+                    IssuerSigningKey = new SymmetricSecurityKey(key)
+                }, out SecurityToken validatedToken);
+
+                return true;
+
+            }
+            catch
+            {
+
+                return false;
+            }
+        }
+
+        public Task<bool> DeleteToken(string token)
+        {
+
+
+        }
     }
 }
