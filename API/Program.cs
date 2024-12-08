@@ -6,6 +6,7 @@ using Application.Mediator.Handlers;
 using Application.Profiles;
 using Application.Service;
 using Contracts.Interfaces;
+using Contracts.Interfaces.RepositoryInterfaces;
 using Domain.Entities;
 using FluentValidation.AspNetCore;
 using Infrastructure.Data;
@@ -109,6 +110,7 @@ namespace API
             builder.Services.AddAutoMapper(typeof(UserProfile));
 
             builder.Services.AddScoped<ITokenService, TokenService>();
+            builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
 
             builder.Services.AddControllers();

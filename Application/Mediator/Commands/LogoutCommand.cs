@@ -1,4 +1,4 @@
-﻿using Contracts.Authentication;
+﻿using Contracts.DTOs.Authentication;
 using MediatR;
 
 namespace Application.Mediator.Commands

@@ -1,6 +1,6 @@
 ﻿
 using Application.Mediator.Commands;
-using Contracts.Authentication;
+using Contracts.DTOs.Authentication;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -16,7 +16,7 @@ namespace API.Controllers
 
         public AuthController(IMediator mediator)
         {
-            _mediator = mediator;
+            _mediator = mediator ?? throw new ArgumentNullException(nameof(mediator));
         }
 
         /// <summary>

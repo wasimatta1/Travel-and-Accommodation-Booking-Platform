@@ -4,12 +4,61 @@
         <name>API</name>
     </assembly>
     <members>
-        <member name="M:API.Controllers.AuthController.Register(Contracts.Authentication.RegisterRequest)">
+        <member name="M:API.Controllers.AuthController.Register(Contracts.DTOs.Authentication.RegisterRequest)">
             <summary>
             Register a new user
             </summary>
             <param name="registerRequest"></param>
             <returns></returns>
+        </member>
+        <member name="M:API.Controllers.CityController.GetAllAsync(System.Int32,System.Int32,System.String,System.String,System.String)">
+            <summary>
+            Retrieves a paginated list of cities with optional filtering by city name, country, and post office code.
+            </summary>
+            <param name="pagNumber">The page number for pagination.</param>
+            <param name="pageSize">The number of records per page.</param>
+            <param name="CityName">Optional filter to search cities by name.</param>
+            <param name="Country">Optional filter to search cities by country.</param>
+            <param name="PostOffice">Optional filter to search cities by post office code.</param>
+            <returns>A paginated list of cities matching the specified filters.</returns>
+            <response code="200">Returns the list of cities.</response>
+        </member>
+        <member name="M:API.Controllers.CityController.GetCityById(System.Int32)">
+            <summary>
+            Retrieves detailed information about a specific city by its unique identifier.
+            </summary>
+            <param name="id">The unique identifier of the city.</param>
+            <returns>The city details if found.</returns>
+            <response code="200">Returns the city details.</response>
+            <response code="404">If the city is not found.</response>
+        </member>
+        <member name="M:API.Controllers.CityController.CreateCity(Contracts.DTOs.City.CreateCityDto)">
+            <summary>
+            Creates a new city with the provided details.
+            </summary>
+            <param name="createCityDto">The details of the city to create.</param>
+            <returns>The created city's information.</returns>
+            <response code="201">Returns the newly created city.</response>
+            <response code="400">If the request body is invalid.</response>
+        </member>
+        <member name="M:API.Controllers.CityController.UpdateCity(Contracts.DTOs.City.UpdateCityDto)">
+            <summary>
+            Updates the details of an existing city.
+            </summary>
+            <param name="updateCityDto">The updated details of the city.</param>
+            <returns>The updated city's information.</returns>
+            <response code="200">Returns the updated city.</response>
+            <response code="400">If the request body is invalid.</response>
+            <response code="404">If the city to update is not found.</response>
+        </member>
+        <member name="M:API.Controllers.CityController.DeleteCity(System.Int32)">
+            <summary>
+            Deletes a city by its unique identifier.
+            </summary>
+            <param name="id">The unique identifier of the city to delete.</param>
+            <returns>No content if deletion is successful.</returns>
+            <response code="204">Indicates that the city was successfully deleted.</response>
+            <response code="404">If the city to delete is not found.</response>
         </member>
     </members>
 </doc>

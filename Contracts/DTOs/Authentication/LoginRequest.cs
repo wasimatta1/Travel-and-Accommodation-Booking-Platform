@@ -1,4 +1,4 @@
-﻿namespace Contracts.Authentication
+﻿namespace Contracts.DTOs.Authentication
 {
     public class LoginRequest
     {

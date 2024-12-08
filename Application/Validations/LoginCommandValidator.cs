@@ -1,5 +1,5 @@
-﻿using FluentValidation;
-using Application.Mediator.Commands;
+﻿using Application.Mediator.Commands;
+using FluentValidation;
 
 namespace Application.Validations
 {
@@ -15,4 +15,5 @@ namespace Application.Validations
                 .NotEmpty().WithMessage("Password is required.");
         }
     }
+
 }

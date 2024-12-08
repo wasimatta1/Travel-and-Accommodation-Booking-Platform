@@ -1,5 +1,5 @@
 ﻿using Application.Mediator.Commands;
-using Contracts.Authentication;
+using Contracts.DTOs.Authentication;
 using Contracts.Interfaces;
 using Domain.Entities;
 using MediatR;

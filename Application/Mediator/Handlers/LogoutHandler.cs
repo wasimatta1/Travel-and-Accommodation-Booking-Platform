@@ -1,5 +1,5 @@
 ﻿using Application.Mediator.Commands;
-using Contracts.Authentication;
+using Contracts.DTOs.Authentication;
 using Domain.Entities;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
