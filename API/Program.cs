@@ -2,7 +2,7 @@
 
 using Application.Exceptions;
 using Application.Mediator.Behavior;
-using Application.Mediator.Handlers;
+using Application.Mediator.Handlers.AuthHandler;
 using Application.Profiles;
 using Application.Service;
 using Contracts.Interfaces;

@@ -1,5 +1,4 @@
 ﻿using Application.Mediator.Commands.CityCommands;
-using AutoMapper;
 using Contracts.Interfaces.RepositoryInterfaces;
 using MediatR;
 using Microsoft.Extensions.Logging;
@@ -9,13 +8,11 @@ namespace Application.Mediator.Handlers.CityHandler
     public class DeleteCityCommandHandler : IRequestHandler<DeleteCityCommand, int>
     {
         private readonly IUnitOfWork _unitOfWork;
-        private readonly IMapper _mapper;
-        private readonly ILogger<GetCityByIdQueryHandler> _logger;
+        private readonly ILogger<DeleteCityCommandHandler> _logger;
 
-        public DeleteCityCommandHandler(IUnitOfWork unitOfWork, IMapper mapper, ILogger<GetCityByIdQueryHandler> logger)
+        public DeleteCityCommandHandler(IUnitOfWork unitOfWork, ILogger<DeleteCityCommandHandler> logger)
         {
             _unitOfWork = unitOfWork;
-            _mapper = mapper;
             _logger = logger;
         }
 
@@ -25,12 +22,12 @@ namespace Application.Mediator.Handlers.CityHandler
             var city = await _unitOfWork.Cities.GetByIdAsync(request.CityID);
             if (city == null)
             {
-                _logger.LogWarning("City with ID: {CityID} was not found", request.CityID);
+                _logger.LogWarning($"City with ID: {request.CityID} was not found");
                 return 0;
             }
             await _unitOfWork.Cities.DeleteAsync(city);
 
-            _logger.LogInformation("City with ID: {CityID} deleted successfully", request.CityID);
+            _logger.LogInformation($"City with ID: {request.CityID} deleted successfully");
 
             return await _unitOfWork.CompleteAsync();
 

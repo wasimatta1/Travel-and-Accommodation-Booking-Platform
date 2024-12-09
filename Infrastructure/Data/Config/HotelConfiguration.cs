@@ -12,9 +12,10 @@ namespace Infrastructure.Data.Config
             builder.Property(h => h.HotelID).ValueGeneratedOnAdd();
 
             builder.Property(h => h.Name).IsRequired().HasMaxLength(50);
-            builder.Property(h => h.StarRating).IsRequired();
+            builder.Property(h => h.StarRating).IsRequired(false);
             builder.Property(h => h.Description).IsRequired().HasMaxLength(255);
             builder.Property(h => h.Address).IsRequired().HasMaxLength(255);
+            builder.Property(h => h.LocationGoogelMap).IsRequired(false).HasMaxLength(255);
             builder.Property(h => h.ThumbnailURL).IsRequired().HasMaxLength(255);
             builder.Property(h => h.ImageURL).IsRequired().HasMaxLength(255);
             builder.Property(h => h.CreatedAt).HasDefaultValueSql("GETUTCDATE()");

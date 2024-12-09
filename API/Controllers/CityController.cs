@@ -64,7 +64,7 @@ namespace API.Controllers
             var query = new GetCityByIdQuery { CityID = id };
             var city = await _mediator.Send(query);
             if (city == null)
-                return NotFound();
+                return NotFound(new { Message = $"City with ID {id} not found." });
 
             return Ok(city);
         }
@@ -109,7 +109,7 @@ namespace API.Controllers
             var command = new UpdateCityCommand { UpdateCityDto = updateCityDto };
             var city = await _mediator.Send(command);
             if (city == null)
-                return NotFound();
+                return NotFound(new { Message = $"City with ID {updateCityDto.CityID} not found." });
 
             return Ok(city);
         }
@@ -129,7 +129,7 @@ namespace API.Controllers
             var command = new DeleteCityCommand { CityID = id };
             var change = await _mediator.Send(command);
             if (change == 0)
-                return NotFound();
+                return NotFound(new { Message = $"City with ID {id} not found." });
 
             return NoContent();
         }

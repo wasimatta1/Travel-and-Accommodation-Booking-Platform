@@ -14,12 +14,14 @@
         public string OwnerID { get; set; }
 
 
-        public decimal StarRating { get; set; }
+        public decimal? StarRating { get; set; }
 
         public string Description { get; set; }
 
 
         public string Address { get; set; }
+
+        public string LocationGoogelMap { get; set; }
         public string ThumbnailURL { get; set; }
 
         public string ImageURL { get; set; }

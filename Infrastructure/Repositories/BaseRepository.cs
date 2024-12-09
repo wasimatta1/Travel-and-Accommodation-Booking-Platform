@@ -34,7 +34,16 @@ namespace Infrastructure.Repositories
             }
             return await query.Skip((pagNumber - 1) * pageSize).Take(pageSize).ToListAsync();
         }
+        public async Task<T?> FindAsync(Expression<Func<T, bool>> criteria, string[] includes = null)
+        {
+            IQueryable<T> query = _context.Set<T>();
 
+            if (includes != null)
+                foreach (var incluse in includes)
+                    query = query.Include(incluse);
+
+            return query.SingleOrDefault(criteria);
+        }
 
         public async Task<T?> GetByIdAsync(int id)
         {

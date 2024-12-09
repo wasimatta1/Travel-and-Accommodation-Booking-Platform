@@ -11,9 +11,9 @@ namespace Application.Mediator.Handlers.CityHandler
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
-        private readonly ILogger<GetCityByIdQueryHandler> _logger;
+        private readonly ILogger<CreateCityCommandHandler> _logger;
 
-        public CreateCityCommandHandler(IUnitOfWork unitOfWork, IMapper mapper, ILogger<GetCityByIdQueryHandler> logger)
+        public CreateCityCommandHandler(IUnitOfWork unitOfWork, IMapper mapper, ILogger<CreateCityCommandHandler> logger)
         {
             _unitOfWork = unitOfWork;
             _mapper = mapper;
@@ -22,12 +22,14 @@ namespace Application.Mediator.Handlers.CityHandler
 
         public async Task<int> Handle(CreateCityCommand request, CancellationToken cancellationToken)
         {
-            _logger.LogInformation("Handling CreateCityCommand for City: {CityName}", request.CreateCityDto.Name);
+            _logger.LogInformation($"Handling CreateCityCommand for City: {request.CreateCityDto.Name}");
+
+
             var city = _mapper.Map<City>(request.CreateCityDto);
             await _unitOfWork.Cities.CreateAsync(city);
             await _unitOfWork.CompleteAsync();
 
-            _logger.LogInformation("City: {CityName} created successfully w", request.CreateCityDto.Name);
+            _logger.LogInformation($"City: {request.CreateCityDto.Name} created successfully");
             return city.CityID;
         }
     }

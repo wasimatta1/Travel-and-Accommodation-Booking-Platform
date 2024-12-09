@@ -1,7 +1,7 @@
-﻿using Application.Mediator.Commands;
+﻿using Application.Mediator.Commands.AuthCommands;
 using FluentValidation;
 
-namespace Application.Validations
+namespace Application.Validations.AuthValidator
 {
     public class RegisterCommandValidator : AbstractValidator<RegisterCommand>
     {

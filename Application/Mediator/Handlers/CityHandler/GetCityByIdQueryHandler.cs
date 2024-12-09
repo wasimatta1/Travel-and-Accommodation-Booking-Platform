@@ -23,13 +23,13 @@ namespace Application.Mediator.Handlers.CityHandler
 
         public async Task<CityDto> Handle(GetCityByIdQuery request, CancellationToken cancellationToken)
         {
-            _logger.LogInformation("Handling GetCityByIdQuery for City ID: {CityID}", request.CityID);
+            _logger.LogInformation($"Handling GetCityByIdQuery for City ID: {request.CityID}");
 
             var city = await _unitOfWork.Cities.GetByIdAsync(request.CityID);
 
             if (city == null)
             {
-                _logger.LogWarning("City with ID: {CityID} was not found", request.CityID);
+                _logger.LogWarning($"City with ID: {request.CityID} was not found");
                 return null;
             }
 

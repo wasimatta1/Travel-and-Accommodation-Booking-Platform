@@ -29,17 +29,14 @@ namespace Application.Mediator.Handlers.CityHandler
             IEnumerable<Expression<Func<City, bool>>> criteria = new List<Expression<Func<City, bool>>>();
 
             if (!string.IsNullOrEmpty(request.CityName))
-            {
                 criteria = criteria.Append(c => c.Name == request.CityName);
-            }
+
             if (!string.IsNullOrEmpty(request.Country))
-            {
                 criteria = criteria.Append(c => c.Country == request.Country);
-            }
+
             if (!string.IsNullOrEmpty(request.PostOffice))
-            {
                 criteria = criteria.Append(c => c.PostOffice == request.PostOffice);
-            }
+
 
             var cities = await _unitOfWork.Cities.FindAllAsync(criteria, request.PagNumber, request.PageSize);
 
