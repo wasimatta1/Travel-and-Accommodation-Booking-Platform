@@ -4,12 +4,183 @@
         <name>API</name>
     </assembly>
     <members>
-        <member name="M:API.Controllers.AuthController.Register(Contracts.Authentication.RegisterRequest)">
+        <member name="M:API.Controllers.AuthController.Register(Contracts.DTOs.Authentication.RegisterRequest)">
             <summary>
-            Register a new user
+            Registers a new user with the provided registration details.
             </summary>
-            <param name="registerRequest"></param>
-            <returns></returns>
+            <param name="registerRequest">The registration details of the user.</param>
+            <returns>A success message if registration is successful; otherwise, returns validation errors.</returns>
+            <response code="200">Returns a success message upon successful registration.</response>
+            <response code="400">Returns validation errors if the registration details are invalid.</response>
+        </member>
+        <member name="M:API.Controllers.AuthController.Login(Contracts.DTOs.Authentication.LoginRequest)">
+            <summary>
+            Authenticates a user with the provided login credentials.
+            </summary>
+            <param name="loginRequest">The login credentials of the user.</param>
+            <returns>A JWT token if authentication is successful; otherwise, returns an error message.</returns>
+            <response code="200">Returns a JWT token upon successful authentication.</response>
+            <response code="400">Returns an error message if authentication fails.</response>
+        </member>
+        <member name="M:API.Controllers.AuthController.Logout">
+            <summary>
+            Logs out the currently authenticated user.
+            </summary>
+            <returns>A success message if logout is successful; otherwise, returns an error message.</returns>
+            <response code="200">Returns a success message upon successful logout.</response>
+            <response code="400">Returns an error message if logout fails.</response>
+        </member>
+        <member name="M:API.Controllers.CityController.GetAllAsync(System.Int32,System.Int32,System.String,System.String,System.String)">
+            <summary>
+            Retrieves a paginated list of cities with optional filtering by city name, country, and post office code.
+            </summary>
+            <param name="pagNumber">The page number for pagination.</param>
+            <param name="pageSize">The number of records per page.</param>
+            <param name="CityName">Optional filter to search cities by name.</param>
+            <param name="Country">Optional filter to search cities by country.</param>
+            <param name="PostOffice">Optional filter to search cities by post office code.</param>
+            <returns>A paginated list of cities matching the specified filters.</returns>
+            <response code="200">Returns the list of cities.</response>
+        </member>
+        <member name="M:API.Controllers.CityController.GetCityById(System.Int32)">
+            <summary>
+            Retrieves detailed information about a specific city by its unique identifier.
+            </summary>
+            <param name="id">The unique identifier of the city.</param>
+            <returns>The city details if found.</returns>
+            <response code="200">Returns the city details.</response>
+            <response code="404">If the city is not found.</response>
+        </member>
+        <member name="M:API.Controllers.CityController.CreateCity(Contracts.DTOs.City.CreateCityDto)">
+            <summary>
+            Creates a new city with the provided details.
+            </summary>
+            <param name="createCityDto">The details of the city to create.</param>
+            <returns>The created city's information.</returns>
+            <response code="201">Returns the newly created city.</response>
+            <response code="400">If the request body is invalid.</response>
+        </member>
+        <member name="M:API.Controllers.CityController.UpdateCity(Contracts.DTOs.City.UpdateCityDto)">
+            <summary>
+            Updates the details of an existing city.
+            </summary>
+            <param name="updateCityDto">The updated details of the city.</param>
+            <returns>The updated city's information.</returns>
+            <response code="200">Returns the updated city.</response>
+            <response code="400">If the request body is invalid.</response>
+            <response code="404">If the city to update is not found.</response>
+        </member>
+        <member name="M:API.Controllers.CityController.DeleteCity(System.Int32)">
+            <summary>
+            Deletes a city by its unique identifier.
+            </summary>
+            <param name="id">The unique identifier of the city to delete.</param>
+            <returns>No content if deletion is successful.</returns>
+            <response code="204">Indicates that the city was successfully deleted.</response>
+            <response code="404">If the city to delete is not found.</response>
+        </member>
+        <member name="M:API.Controllers.HotelController.GetAllAsync(System.Int32,System.Int32,System.String,System.String,System.String,System.Nullable{System.Decimal})">
+            <summary>
+            Retrieves a paginated list of hotels with optional filtering by hotel name, city, owner name, and star rating.
+            </summary>
+            <param name="pagNumber">The page number for pagination .</param>
+            <param name="pageSize">The number of records per page .</param>
+            <param name="HotelName">Optional filter to search hotels by name.</param>
+            <param name="City">Optional filter to search hotels by city .</param>
+            <param name="Owner">Optional filter to search hotels by owner name .</param>
+            <param name="StarRating">Optional filter to search hotels by star rating .</param>
+            <returns>A paginated list of hotels matching the specified filters.</returns>
+            <response code="200">Returns the list of hotels.</response>
+            <response code="400">If the request parameters are invalid.</response>
+        </member>
+        <member name="M:API.Controllers.HotelController.GetHotelById(System.Int32)">
+            <summary>
+            Retrieves detailed information about a specific hotel by its unique identifier.
+            </summary>
+            <param name="id">The unique identifier of the hotel.</param>
+            <returns>The hotel details if found.</returns>
+            <response code="200">Returns the hotel details.</response>
+            <response code="404">If the hotel is not found.</response>
+        </member>
+        <member name="M:API.Controllers.HotelController.CreateHotel(Contracts.DTOs.Hotel.CreateHotelDto)">
+            <summary>
+            Creates a new hotel with the provided details.
+            </summary>
+            <param name="createHotelDto">The details of the hotel to create.</param>
+            <returns>The created hotel's information.</returns>
+            <response code="201">Returns the newly created hotel.</response>
+            <response code="400">If the request body is invalid.</response>
+        </member>
+        <member name="M:API.Controllers.HotelController.UpdateHotel(Contracts.DTOs.Hotel.UpdateHotelDto)">
+            <summary>
+            Updates the details of an existing hotel.
+            </summary>
+            <param name="updateHotelDto">The updated details of the hotel.</param>
+            <returns>The updated hotel's information.</returns>
+            <response code="200">Returns the updated hotel.</response>
+            <response code="400">If the request body is invalid or ID mismatch occurs.</response>
+            <response code="404">If the hotel to update is not found.</response>
+        </member>
+        <member name="M:API.Controllers.HotelController.DeleteHotel(System.Int32)">
+            <summary>
+            Deletes a hotel by its unique identifier.
+            </summary>
+            <param name="id">The unique identifier of the hotel to delete.</param>
+            <returns>No content if deletion is successful.</returns>
+            <response code="204">Indicates that the hotel was successfully deleted.</response>
+            <response code="404">If the hotel to delete is not found.</response>
+        </member>
+        <member name="M:API.Controllers.RoomController.GetAllAsync(System.Int32,System.Int32,System.String,System.String,System.Nullable{System.Int32},System.Nullable{System.Int32},System.Nullable{System.Boolean})">
+            <summary>
+            Retrieves a paginated list of rooms with optional filtering by room number, type, adult capacity, children capacity, and availability.
+            </summary>
+            <param name="pagNumber">The page number for pagination .</param>
+            <param name="pageSize">The number of records per page .</param>
+            <param name="RoomNumber">Optional filter to search rooms by room number.</param>
+            <param name="Type">Optional filter to search rooms by type.</param>
+            <param name="AdultCapacity">Optional filter to search rooms by adult capacity.</param>
+            <param name="ChildrenCapacity">Optional filter to search rooms by children capacity.</param>
+            <param name="Availability">Optional filter to search rooms by availability status.</param>
+            <returns>A paginated list of rooms matching the specified filters.</returns>
+            <response code="200">Returns the list of rooms.</response>
+            <response code="400">If the request parameters are invalid.</response>
+        </member>
+        <member name="M:API.Controllers.RoomController.GetRoomById(System.Int32)">
+            <summary>
+            Retrieves detailed information about a specific room by its unique identifier.
+            </summary>
+            <param name="id">The unique identifier of the room.</param>
+            <returns>The room details if found.</returns>
+            <response code="200">Returns the room details.</response>
+            <response code="404">If the room is not found.</response>
+        </member>
+        <member name="M:API.Controllers.RoomController.CreateRoom(Contracts.DTOs.Room.CreateRoomDto)">
+            <summary>
+            Creates a new room with the provided details.
+            </summary>
+            <param name="createRoomDto">The details of the room to create.</param>
+            <returns>The created room's information.</returns>
+            <response code="201">Returns the newly created room.</response>
+            <response code="400">If the request body is invalid.</response>
+        </member>
+        <member name="M:API.Controllers.RoomController.UpdateRoom(Contracts.DTOs.Room.UpdateRoomDto)">
+            <summary>
+            Updates the details of an existing room.
+            </summary>
+            <param name="updateRoomDto">The updated details of the room.</param>
+            <returns>The updated room's information.</returns>
+            <response code="200">Returns the updated room.</response>
+            <response code="400">If the request body is invalid.</response>
+            <response code="404">If the room to update is not found.</response>
+        </member>
+        <member name="M:API.Controllers.RoomController.DeleteRoom(System.Int32)">
+            <summary>
+            Deletes a room by its unique identifier.
+            </summary>
+            <param name="id">The unique identifier of the room to delete.</param>
+            <returns>No content if deletion is successful.</returns>
+            <response code="204">Indicates that the room was successfully deleted.</response>
+            <response code="404">If the room to delete is not found.</response>
         </member>
     </members>
 </doc>

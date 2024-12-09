@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using Contracts.Authentication;
+using Contracts.DTOs.Authentication;
 using Domain.Entities;
 
 namespace Application.Profiles

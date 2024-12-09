@@ -8,5 +8,9 @@ namespace Domain.Entities
         public string LastName { get; set; } = string.Empty;
         public DateTime DateOfBirth { get; set; }
 
+        //Navigation Properties
+
+        public ICollection<Hotel>? Hotels { get; set; } = new List<Hotel>();
+
     }
 }
