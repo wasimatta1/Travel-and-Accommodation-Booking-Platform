@@ -54,6 +54,11 @@ namespace Infrastructure.Repositories
             await _context.Set<T>().AddAsync(entity);
             return entity;
         }
+        public async Task<IEnumerable<T>> AddRangeAsync(IEnumerable<T> entities)
+        {
+            await _context.Set<T>().AddRangeAsync(entities);
+            return entities;
+        }
 
         public async Task<T> UpdateAsync(T entity)
         {
@@ -64,6 +69,10 @@ namespace Infrastructure.Repositories
         public async Task DeleteAsync(T entity)
         {
             _context.Set<T>().Remove(entity);
+        }
+        public async Task DeleteRangeAsync(IEnumerable<T> entities)
+        {
+            _context.Set<T>().RemoveRange(entities);
         }
 
     }

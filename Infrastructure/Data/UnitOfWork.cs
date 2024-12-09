@@ -11,6 +11,7 @@ namespace Infrastructure.Data
         private ICityRepository _cities;
         private IHotelRepository _hotels;
         private IRoomRepository _rooms;
+        private IRoomImageRepository _roomImages;
 
         public UnitOfWork(ApplicationDbContext context)
         {
@@ -20,6 +21,7 @@ namespace Infrastructure.Data
         public ICityRepository Cities => _cities ??= new CityRepository(_context);
         public IHotelRepository Hotels => _hotels ??= new HotelRepository(_context);
         public IRoomRepository Rooms => _rooms ??= new RoomRepository(_context);
+        public IRoomImageRepository RoomImages => _roomImages ??= new RoomImageRepository(_context);
 
         public async Task<int> CompleteAsync()
         {

@@ -26,6 +26,10 @@
         /// <example>Paris</example>
         public string CityName { get; set; }
 
+        public DateTime CreatedAt { get; set; }
+
+        public DateTime? UpdatedAt { get; set; }
+
 
     }
 }

@@ -7,5 +7,9 @@
         /// </summary>
         /// <example>25</example>
         public int numberOfHotels { get; set; }
+
+        public DateTime CreatedAt { get; set; }
+
+        public DateTime? UpdatedAt { get; set; }
     }
 }

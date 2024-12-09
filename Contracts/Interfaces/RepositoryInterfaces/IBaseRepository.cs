@@ -9,7 +9,10 @@ namespace Contracts.Interfaces.RepositoryInterfaces
         Task<T?> GetByIdAsync(int id);
         Task<T?> FindAsync(Expression<Func<T, bool>> criteria, string[] includes = null);
         Task<T> CreateAsync(T entity);
+        Task<IEnumerable<T>> AddRangeAsync(IEnumerable<T> entities);
         Task<T> UpdateAsync(T entity);
         Task DeleteAsync(T entity);
+
+        Task DeleteRangeAsync(IEnumerable<T> entities);
     }
 }

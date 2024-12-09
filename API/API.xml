@@ -130,5 +130,57 @@
             <response code="204">Indicates that the hotel was successfully deleted.</response>
             <response code="404">If the hotel to delete is not found.</response>
         </member>
+        <member name="M:API.Controllers.RoomController.GetAllAsync(System.Int32,System.Int32,System.String,System.String,System.Nullable{System.Int32},System.Nullable{System.Int32},System.Nullable{System.Boolean})">
+            <summary>
+            Retrieves a paginated list of rooms with optional filtering by room number, type, adult capacity, children capacity, and availability.
+            </summary>
+            <param name="pagNumber">The page number for pagination .</param>
+            <param name="pageSize">The number of records per page .</param>
+            <param name="RoomNumber">Optional filter to search rooms by room number.</param>
+            <param name="Type">Optional filter to search rooms by type.</param>
+            <param name="AdultCapacity">Optional filter to search rooms by adult capacity.</param>
+            <param name="ChildrenCapacity">Optional filter to search rooms by children capacity.</param>
+            <param name="Availability">Optional filter to search rooms by availability status.</param>
+            <returns>A paginated list of rooms matching the specified filters.</returns>
+            <response code="200">Returns the list of rooms.</response>
+            <response code="400">If the request parameters are invalid.</response>
+        </member>
+        <member name="M:API.Controllers.RoomController.GetRoomById(System.Int32)">
+            <summary>
+            Retrieves detailed information about a specific room by its unique identifier.
+            </summary>
+            <param name="id">The unique identifier of the room.</param>
+            <returns>The room details if found.</returns>
+            <response code="200">Returns the room details.</response>
+            <response code="404">If the room is not found.</response>
+        </member>
+        <member name="M:API.Controllers.RoomController.CreateRoom(Contracts.DTOs.Room.CreateRoomDto)">
+            <summary>
+            Creates a new room with the provided details.
+            </summary>
+            <param name="createRoomDto">The details of the room to create.</param>
+            <returns>The created room's information.</returns>
+            <response code="201">Returns the newly created room.</response>
+            <response code="400">If the request body is invalid.</response>
+        </member>
+        <member name="M:API.Controllers.RoomController.UpdateRoom(Contracts.DTOs.Room.UpdateRoomDto)">
+            <summary>
+            Updates the details of an existing room.
+            </summary>
+            <param name="updateRoomDto">The updated details of the room.</param>
+            <returns>The updated room's information.</returns>
+            <response code="200">Returns the updated room.</response>
+            <response code="400">If the request body is invalid.</response>
+            <response code="404">If the room to update is not found.</response>
+        </member>
+        <member name="M:API.Controllers.RoomController.DeleteRoom(System.Int32)">
+            <summary>
+            Deletes a room by its unique identifier.
+            </summary>
+            <param name="id">The unique identifier of the room to delete.</param>
+            <returns>No content if deletion is successful.</returns>
+            <response code="204">Indicates that the room was successfully deleted.</response>
+            <response code="404">If the room to delete is not found.</response>
+        </member>
     </members>
 </doc>
