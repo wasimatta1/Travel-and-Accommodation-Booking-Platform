@@ -1,5 +1,5 @@
 
-# Travel and Accommodation Booking Platform (ork in Progress)
+# Travel and Accommodation Booking Platform (Work in Progress)
 
 This project is currently under development. The goal is to create a robust online booking system for travelers, offering features like:
 
