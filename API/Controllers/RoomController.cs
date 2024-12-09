@@ -2,6 +2,7 @@
 using Application.Mediator.Queries.RoomQueries;
 using Contracts.DTOs.Room;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers
@@ -9,6 +10,7 @@ namespace API.Controllers
 
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize(Roles = "Admin")]
     public class RoomController : ControllerBase
     {
         private readonly IMediator _mediator;
