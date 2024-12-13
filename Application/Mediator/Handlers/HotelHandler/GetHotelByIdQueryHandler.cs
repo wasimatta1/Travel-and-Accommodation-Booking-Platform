@@ -29,7 +29,8 @@ namespace Application.Mediator.Handlers.HotelHandler
             {
                 "Owner",
                 "City",
-                "Rooms"
+                "Rooms",
+                "Amenities"
             };
 
             var hotel = await _unitOfWork.Hotels.FindAsync(c => c.HotelID == request.HotelID, includes);

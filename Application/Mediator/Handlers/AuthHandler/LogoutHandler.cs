@@ -7,7 +7,7 @@ using Microsoft.Extensions.Logging;
 
 namespace Application.Mediator.Handlers.AuthHandler
 {
-    public class LogoutHandler : IRequestHandler<LogoutCommand, AuthResponse>
+    public class LogoutHandler : IRequestHandler<LogoutCommand, AuthResponseDto>
     {
         private readonly SignInManager<User> _signInManager;
         private readonly ILogger<LogoutHandler> _logger;
@@ -18,12 +18,12 @@ namespace Application.Mediator.Handlers.AuthHandler
             _logger = logger;
         }
 
-        public async Task<AuthResponse> Handle(LogoutCommand request, CancellationToken cancellationToken)
+        public async Task<AuthResponseDto> Handle(LogoutCommand request, CancellationToken cancellationToken)
         {
             _logger.LogInformation("Handling LogoutCommand");
             await _signInManager.SignOutAsync();
 
-            return new AuthResponse
+            return new AuthResponseDto
             {
                 IsSuccess = true,
                 Message = "User logged out successfully"

@@ -8,6 +8,11 @@
         /// <example>Grand Plaza Hotel</example>
         public string Name { get; set; }
 
+        /// <summary>
+        /// Get the star rating of the hotel.
+        /// </summary>
+        /// <example>4</example>
+        public decimal StarRating { get; set; }
 
         /// <summary>
         /// Get or set the description of the hotel.
@@ -38,5 +43,7 @@
         /// </summary>
         /// <example>https://www.example.com/images/hotels/grand-plaza-main.jpg</example>
         public string ImageURL { get; set; }
+
+        public ICollection<string> AmenitiesName { get; set; } = new List<string>();
     }
 }

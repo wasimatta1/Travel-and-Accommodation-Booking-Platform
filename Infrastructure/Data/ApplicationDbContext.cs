@@ -10,6 +10,13 @@ namespace Infrastructure.Data
         public DbSet<City> Cities { get; set; }
         public DbSet<Hotel> Hotels { get; set; }
         public DbSet<Room> Rooms { get; set; }
+        public DbSet<Booking> Bookings { get; set; }
+        public DbSet<BookingRoom> BookingRooms { get; set; }
+        public DbSet<Discount> Discounts { get; set; }
+        public DbSet<Amenity> Amenities { get; set; }
+        public DbSet<HotelAmenity> HotelAmenities { get; set; }
+        public DbSet<Review> Reviews { get; set; }
+
 
         public DbSet<RoomImage> RoomImages { get; set; }
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
@@ -20,7 +27,6 @@ namespace Infrastructure.Data
         {
             base.OnModelCreating(builder);
 
-            builder.Entity<User>().Property(u => u.Id).ValueGeneratedOnAdd();
             builder.ApplyConfigurationsFromAssembly(typeof(ApplicationDbContext).Assembly);
         }
     }

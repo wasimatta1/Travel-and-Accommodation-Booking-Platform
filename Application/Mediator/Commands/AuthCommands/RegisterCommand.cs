@@ -3,8 +3,8 @@ using MediatR;
 
 namespace Application.Mediator.Commands.AuthCommands
 {
-    public class RegisterCommand : IRequest<AuthResponse>
+    public class RegisterCommand : IRequest<AuthResponseDto>
     {
-        public RegisterRequest RegisteredUser { get; set; }
+        public RegisterRequestDto RegisteredUser { get; set; }
     }
 }

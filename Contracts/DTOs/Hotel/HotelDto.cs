@@ -2,11 +2,6 @@
 {
     public class HotelDto : BaseHotelDto
     {
-        /// <summary>
-        /// Get the star rating of the hotel.
-        /// </summary>
-        /// <example>4</example>
-        public decimal StarRating { get; set; }
 
         /// <summary>
         /// Get the name of the hotel's owner.
