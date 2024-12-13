@@ -20,6 +20,14 @@ namespace Application.Profiles
                 src.Discounts.Any(d => d.StartDate <= DateTime.Now && d.EndDate >= DateTime.Now)
                     ? (1 - src.Discounts.First(d => d.StartDate <= DateTime.Now && d.EndDate >= DateTime.Now).DiscountPercentage / 100) * src.PricePerNight
                     : src.PricePerNight));
+
+            CreateMap<Booking, RecentlyVisitedResponse>()
+                .ForMember(dest => dest.HotelName, opt => opt.MapFrom(src => src.Rooms.First().Hotel.Name))
+                .ForMember(dest => dest.ThumbnailUrl, opt => opt.MapFrom(src => src.Rooms.First().Hotel.ThumbnailURL))
+                .ForMember(dest => dest.StarRating, opt => opt.MapFrom(src => src.Rooms.First().Hotel.StarRating))
+                .ForMember(dest => dest.City, opt => opt.MapFrom(src => src.Rooms.First().Hotel.City.Name))
+                .ForMember(dest => dest.TotalPrice, opt => opt.MapFrom(src => src.TotalPrice));
+
         }
 
     }

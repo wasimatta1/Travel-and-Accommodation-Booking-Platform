@@ -1,5 +1,6 @@
 ﻿using Application.Mediator.Queries.HomeQueries;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers
@@ -59,5 +60,15 @@ namespace API.Controllers
             return Ok(response);
         }
 
+        [HttpGet("RecentlyVisited")]
+        [Authorize(Roles = "User")]
+        public async Task<IActionResult> GetRecentlyVisited(int take)
+        {
+            var response = await _mediator.Send(new GetRecentlyVisitedQuery()
+            {
+                Take = take
+            });
+            return Ok(response);
+        }
     }
 }
