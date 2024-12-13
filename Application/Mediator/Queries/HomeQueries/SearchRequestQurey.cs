@@ -17,6 +17,7 @@ namespace Application.Mediator.Queries.HomeQueries
         //optional filters
         public decimal? PriceMin { get; set; }
         public decimal? PriceMax { get; set; }
+        public int? StarRating { get; set; }
         public string RoomType { get; set; }
         public string[] Amenities { get; set; }
     }

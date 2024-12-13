@@ -10,7 +10,7 @@ namespace Infrastructure.Repositories
         public HotelRepository(ApplicationDbContext context) : base(context)
         {
         }
-        public async Task<IEnumerable<Hotel>> SearchHotels(string query, int pageNumber, int pageSize, string[] amenities)
+        public async Task<IEnumerable<Hotel>> SearchHotels(string query, int? starRating, int pageNumber, int pageSize, string[] amenities)
         {
             var hotelsQurey = _context.Hotels
                 .Include(h => h.Amenities)
@@ -20,6 +20,9 @@ namespace Infrastructure.Repositories
                 .AsQueryable();
 
             hotelsQurey = hotelsQurey.Where(h => h.Name.Contains(query) || h.Address.Contains(query) || h.City.Name.Contains(query));
+
+            if (starRating != null)
+                hotelsQurey = hotelsQurey.Where(h => h.StarRating == starRating);
 
             if (amenities != null && amenities.Length > 0)
                 hotelsQurey = hotelsQurey.Where(h => amenities.All(a => h.Amenities.Any(ha => ha.Name == a)));
@@ -35,8 +38,6 @@ namespace Infrastructure.Repositories
                     Description = h.Description,
                     Rooms = h.Rooms
                 })
-                .Skip((pageNumber - 1) * pageSize)
-                .Take(pageSize)
                 .ToListAsync();
 
             return hotels;

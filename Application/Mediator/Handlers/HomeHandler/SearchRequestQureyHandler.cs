@@ -20,8 +20,8 @@ namespace Application.Mediator.Handlers.HomeHandler
         {
             _logger.LogInformation("SearchRequestQureyHandler.Handle called");
 
-            var hotels = await _unitOfWork.Hotels.SearchHotels(request.Query, request.PageNumber,
-                request.PageSize, request.Amenities);
+            var hotels = await _unitOfWork.Hotels.SearchHotels(request.Query, request.StarRating,
+                request.PageNumber, request.PageSize, request.Amenities);
 
             var rooms = hotels.SelectMany(h => h.Rooms).Where(r => r.Availability == true
             && r.AdultsCapacity >= request.Adults && r.ChildrenCapacity >= request.Children

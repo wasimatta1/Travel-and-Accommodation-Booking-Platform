@@ -16,16 +16,17 @@ namespace API.Controllers
         }
 
         [HttpGet("search")]
-        public async Task<IActionResult> Search(string queryToDestination, string? CheckInDate, string? checkOutDate,
-             int adults = 2, int children = 0, int rooms = 1, decimal? priceMin = null,
-             decimal? priceMax = null, string? RoomType = null, [FromQuery] string[] amenities = null,
+        public async Task<IActionResult> Search(string queryToDestination, string? checkInDate, string? checkOutDate,
+             int adults = 2, int children = 0, int rooms = 1, decimal? priceMin = null, int? starRating = null,
+             decimal? priceMax = null, string? roomType = null, [FromQuery] string[] amenities = null,
              int pageNumber = 1, int pageSize = 10)
         {
+
             DateTime today = DateTime.Today;
             DateTime checkIn = today;
             DateTime checkOut = today.AddDays(1);
-            if (CheckInDate != null)
-                checkIn = DateTime.Parse(CheckInDate);
+            if (checkInDate != null)
+                checkIn = DateTime.Parse(checkInDate);
             if (checkOutDate != null)
                 checkOut = DateTime.Parse(checkOutDate);
 
@@ -40,8 +41,9 @@ namespace API.Controllers
                 Rooms = rooms,
                 PriceMin = priceMin,
                 PriceMax = priceMax,
-                RoomType = RoomType,
+                RoomType = roomType,
                 Amenities = amenities,
+                StarRating = starRating,
                 PageNumber = pageNumber,
                 PageSize = pageSize
             });
