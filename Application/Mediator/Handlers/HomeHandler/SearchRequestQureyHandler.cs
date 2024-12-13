@@ -87,8 +87,9 @@ namespace Application.Mediator.Handlers.HomeHandler
                     RoomType = roomType
                 });
             }
-
+            _logger.LogInformation("SearchRequestQureyHandler.Handle finished");
             return hotelSearchResponses.Values;
         }
+
     }
 }

@@ -49,5 +49,15 @@ namespace API.Controllers
             });
             return Ok(response);
         }
+        [HttpGet("FeaturedDeals")]
+        public async Task<IActionResult> GetFeaturedDeals(int take)
+        {
+            var response = await _mediator.Send(new GetFeaturedDealsQuery()
+            {
+                Take = take
+            });
+            return Ok(response);
+        }
+
     }
 }
