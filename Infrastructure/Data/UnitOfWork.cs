@@ -16,6 +16,7 @@ namespace Infrastructure.Data
         private IBookingRoomRepository _bookingRooms;
         private IHotelAmenityRepository _hotelAmenities;
         private IAmenityRepository _amenities;
+        private IDiscountRepository _discounts;
 
         public UnitOfWork(ApplicationDbContext context)
         {
@@ -30,6 +31,7 @@ namespace Infrastructure.Data
         public IBookingRoomRepository BookingRooms => _bookingRooms ??= new BookingRoomRepository(_context);
         public IHotelAmenityRepository HotelAmenities => _hotelAmenities ??= new HotelAmenityRepository(_context);
         public IAmenityRepository Amenities => _amenities ??= new AmenityRepository(_context);
+        public IDiscountRepository Discounts => _discounts ??= new DiscountRepository(_context);
 
         public async Task<int> CompleteAsync()
         {

@@ -14,7 +14,7 @@
         public string OwnerID { get; set; }
 
 
-        public decimal? StarRating { get; set; }
+        public decimal StarRating { get; set; }
 
         public string Description { get; set; }
 

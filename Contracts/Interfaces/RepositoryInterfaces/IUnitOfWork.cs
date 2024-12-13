@@ -10,6 +10,7 @@
         public IBookingRoomRepository BookingRooms { get; }
         public IHotelAmenityRepository HotelAmenities { get; }
         public IAmenityRepository Amenities { get; }
+        public IDiscountRepository Discounts { get; }
 
         public Task<int> CompleteAsync();
     }
