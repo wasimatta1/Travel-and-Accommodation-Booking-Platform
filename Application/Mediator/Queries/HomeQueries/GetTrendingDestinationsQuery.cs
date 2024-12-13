@@ -3,7 +3,7 @@ using MediatR;
 
 namespace Application.Mediator.Queries.HomeQueries
 {
-    public class GetFeaturedDealsQuery : IRequest<IEnumerable<FeaturedDealDto>>
+    public class GetTrendingDestinationsQuery : IRequest<IEnumerable<TrendingDestinationDto>>
     {
         public int Take { get; set; }
     }

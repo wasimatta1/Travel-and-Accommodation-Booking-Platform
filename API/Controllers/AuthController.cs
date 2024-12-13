@@ -28,7 +28,7 @@ namespace API.Controllers
         [HttpPost("register")]
         [ProducesResponseType(200)]
         [ProducesResponseType(400)]
-        public async Task<IActionResult> Register(RegisterRequest registerRequest)
+        public async Task<IActionResult> Register(RegisterRequestDto registerRequest)
         {
             var command = new RegisterCommand { RegisteredUser = registerRequest };
             var response = await _mediator.Send(command);
@@ -53,7 +53,7 @@ namespace API.Controllers
         [HttpPost("login")]
         [ProducesResponseType(200)]
         [ProducesResponseType(400)]
-        public async Task<IActionResult> Login(LoginRequest loginRequest)
+        public async Task<IActionResult> Login(LoginRequestDto loginRequest)
         {
             var command = new LoginCommand { LoginRequest = loginRequest };
             var response = await _mediator.Send(command);

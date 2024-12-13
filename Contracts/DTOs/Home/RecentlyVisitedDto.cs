@@ -1,6 +1,6 @@
 ﻿namespace Contracts.DTOs.Home
 {
-    public class RecentlyVisitedResponse
+    public class RecentlyVisitedDto
     {
 
         public string HotelName { get; set; }
@@ -10,3 +10,4 @@
         public decimal TotalPrice { get; set; }
     }
 }
+

@@ -8,7 +8,7 @@ using Microsoft.Extensions.Logging;
 
 namespace Application.Mediator.Handlers.AuthHandler
 {
-    public class RegisterHandler : IRequestHandler<RegisterCommand, AuthResponse>
+    public class RegisterHandler : IRequestHandler<RegisterCommand, AuthResponseDto>
     {
         private readonly UserManager<User> _user;
         private readonly IMapper _mapper;
@@ -21,7 +21,7 @@ namespace Application.Mediator.Handlers.AuthHandler
             _logger = logger;
         }
 
-        public async Task<AuthResponse> Handle(RegisterCommand request, CancellationToken cancellationToken)
+        public async Task<AuthResponseDto> Handle(RegisterCommand request, CancellationToken cancellationToken)
         {
 
             _logger.LogInformation($"Handling RegisterCommand for User: {request.RegisteredUser.Email}");
@@ -35,7 +35,7 @@ namespace Application.Mediator.Handlers.AuthHandler
             if (!result.Succeeded)
             {
                 _logger.LogWarning($"User registration failed for user: {request.RegisteredUser.Email}");
-                return new AuthResponse
+                return new AuthResponseDto
                 {
                     IsSuccess = false,
                     Message = "User registration failed",
@@ -51,7 +51,7 @@ namespace Application.Mediator.Handlers.AuthHandler
                 _logger.LogWarning($"Role assignment failed for user: {request.RegisteredUser.Email}");
                 await _user.DeleteAsync(user);
 
-                return new AuthResponse
+                return new AuthResponseDto
                 {
                     IsSuccess = false,
                     Message = "User registration successful, but role assignment failed. User has been removed.",
@@ -60,7 +60,7 @@ namespace Application.Mediator.Handlers.AuthHandler
             }
 
             _logger.LogInformation($"User: {request.RegisteredUser.Email} registered and assigned to role successfully");
-            return new AuthResponse
+            return new AuthResponseDto
             {
                 IsSuccess = true,
                 Message = "User registered and assigned to role successfully"

@@ -11,7 +11,7 @@ using System.Security.Claims;
 
 namespace Application.Mediator.Handlers.HomeHandler
 {
-    public class GetRecentlyVisitedQueryHandler : IRequestHandler<GetRecentlyVisitedQuery, IEnumerable<RecentlyVisitedResponse>>
+    public class GetRecentlyVisitedQueryHandler : IRequestHandler<GetRecentlyVisitedQuery, IEnumerable<RecentlyVisitedDto>>
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
@@ -30,7 +30,7 @@ namespace Application.Mediator.Handlers.HomeHandler
             _httpContextAccessor = httpContextAccessor;
         }
 
-        public async Task<IEnumerable<RecentlyVisitedResponse>> Handle(GetRecentlyVisitedQuery request, CancellationToken cancellationToken)
+        public async Task<IEnumerable<RecentlyVisitedDto>> Handle(GetRecentlyVisitedQuery request, CancellationToken cancellationToken)
         {
             _logger.LogInformation("GetRecentBookingsQueryHandler.Handle called");
 
@@ -40,7 +40,7 @@ namespace Application.Mediator.Handlers.HomeHandler
             var bookings = await _unitOfWork.Bookings.GetBookingsByUserIdAsync(user!.Id, request.Take);
 
             _logger.LogInformation("GetRecentBookingsQueryHandler.Handle finished");
-            return _mapper.Map<IEnumerable<RecentlyVisitedResponse>>(bookings);
+            return _mapper.Map<IEnumerable<RecentlyVisitedDto>>(bookings);
         }
     }
 }

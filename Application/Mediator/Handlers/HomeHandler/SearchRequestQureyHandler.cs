@@ -6,7 +6,7 @@ using Microsoft.Extensions.Logging;
 
 namespace Application.Mediator.Handlers.HomeHandler
 {
-    public class SearchRequestQureyHandler : IRequestHandler<SearchRequestQurey, IEnumerable<SearchResponse>>
+    public class SearchRequestQureyHandler : IRequestHandler<SearchRequestQurey, IEnumerable<SearchResultDto>>
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly ILogger<SearchRequestQureyHandler> _logger;
@@ -16,7 +16,7 @@ namespace Application.Mediator.Handlers.HomeHandler
             _unitOfWork = unitOfWork;
             _logger = logger;
         }
-        public async Task<IEnumerable<SearchResponse>> Handle(SearchRequestQurey request, CancellationToken cancellationToken)
+        public async Task<IEnumerable<SearchResultDto>> Handle(SearchRequestQurey request, CancellationToken cancellationToken)
         {
             _logger.LogInformation("SearchRequestQureyHandler.Handle called");
 
@@ -52,7 +52,7 @@ namespace Application.Mediator.Handlers.HomeHandler
 
             var discountedRoomIds = new HashSet<int>(discounteds.Select(d => d.RoomId));
 
-            var hotelSearchResponses = new Dictionary<int, SearchResponse>();
+            var hotelSearchResponses = new Dictionary<int, SearchResultDto>();
 
             foreach (var hotel in hotels)
             {
@@ -76,7 +76,7 @@ namespace Application.Mediator.Handlers.HomeHandler
                     roomType = firstRoomWithOutDiscount.RoomType.ToString();
                 }
 
-                hotelSearchResponses.Add(hotel.HotelID, new SearchResponse
+                hotelSearchResponses.Add(hotel.HotelID, new SearchResultDto
                 {
                     HotelName = hotel.Name,
                     ThumbnailUrl = hotel.ThumbnailURL,

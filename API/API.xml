@@ -4,7 +4,7 @@
         <name>API</name>
     </assembly>
     <members>
-        <member name="M:API.Controllers.AuthController.Register(Contracts.DTOs.Authentication.RegisterRequest)">
+        <member name="M:API.Controllers.AuthController.Register(Contracts.DTOs.Authentication.RegisterRequestDto)">
             <summary>
             Registers a new user with the provided registration details.
             </summary>
@@ -13,7 +13,7 @@
             <response code="200">Returns a success message upon successful registration.</response>
             <response code="400">Returns validation errors if the registration details are invalid.</response>
         </member>
-        <member name="M:API.Controllers.AuthController.Login(Contracts.DTOs.Authentication.LoginRequest)">
+        <member name="M:API.Controllers.AuthController.Login(Contracts.DTOs.Authentication.LoginRequestDto)">
             <summary>
             Authenticates a user with the provided login credentials.
             </summary>
@@ -78,6 +78,51 @@
             <returns>No content if deletion is successful.</returns>
             <response code="204">Indicates that the city was successfully deleted.</response>
             <response code="404">If the city to delete is not found.</response>
+        </member>
+        <member name="M:API.Controllers.HomeController.Search(System.String,System.String,System.String,System.Int32,System.Int32,System.Int32,System.Nullable{System.Decimal},System.Nullable{System.Int32},System.Nullable{System.Decimal},System.String,System.String[],System.Int32,System.Int32)">
+            <summary>
+            Searches for available rooms and hotels based on provided search criteria.
+            </summary>
+            <param name="queryToDestination">The destination or query to search for.</param>
+            <param name="checkInDate">Optional check-in date. Defaults to today's date if not provided.</param>
+            <param name="checkOutDate">Optional check-out date. Defaults to one day after today's date if not provided.</param>
+            <param name="adults">The number of adults. Defaults to 2.</param>
+            <param name="children">The number of children. Defaults to 0.</param>
+            <param name="rooms">The number of rooms. Defaults to 1.</param>
+            <param name="priceMin">Optional minimum price for filtering.</param>
+            <param name="priceMax">Optional maximum price for filtering.</param>
+            <param name="starRating">Optional star rating for filtering.</param>
+            <param name="roomType">Optional room type for filtering.</param>
+            <param name="amenities">Optional array of amenities for filtering.</param>
+            <param name="pageNumber">The page number for pagination. Defaults to 1.</param>
+            <param name="pageSize">The number of results per page. Defaults to 10.</param>
+            <returns>A list of available rooms and hotels matching the criteria.</returns>
+            <response code="200">Returns the list of matching rooms and hotels.</response>
+        </member>
+        <member name="M:API.Controllers.HomeController.GetFeaturedDeals(System.Int32)">
+            <summary>
+            Retrieves a list of featured deals for rooms and hotels.
+            </summary>
+            <param name="take">The number of featured deals to retrieve.</param>
+            <returns>A list of featured deals.</returns>
+            <response code="200">Returns the list of featured deals.</response>
+        </member>
+        <member name="M:API.Controllers.HomeController.GetRecentlyVisited(System.Int32)">
+            <summary>
+            Retrieves a list of recently visited destinations for the logged-in user.
+            </summary>
+            <param name="take">The number of recently visited destinations to retrieve.</param>
+            <returns>A list of recently visited destinations.</returns>
+            <response code="200">Returns the list of recently visited destinations.</response>
+            <response code="401">Unauthorized if the user is not logged in.</response>
+        </member>
+        <member name="M:API.Controllers.HomeController.GetTrendingDestinations(System.Int32)">
+            <summary>
+            Retrieves a list of trending destinations.
+            </summary>
+            <param name="take">The number of trending destinations to retrieve. Defaults to 5.</param>
+            <returns>A list of trending destinations.</returns>
+            <response code="200">Returns the list of trending destinations.</response>
         </member>
         <member name="M:API.Controllers.HotelController.GetAllAsync(System.Int32,System.Int32,System.String,System.String,System.String,System.Nullable{System.Decimal})">
             <summary>

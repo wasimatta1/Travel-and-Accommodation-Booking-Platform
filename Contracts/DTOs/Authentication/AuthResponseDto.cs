@@ -1,6 +1,6 @@
 ﻿namespace Contracts.DTOs.Authentication
 {
-    public class AuthResponse
+    public class AuthResponseDto
     {
         public bool IsSuccess { get; set; }
         public string Message { get; set; }

@@ -1,6 +1,6 @@
 ﻿namespace Contracts.DTOs.Home
 {
-    public class FeaturedDealResponse
+    public class FeaturedDealDto
     {
         public string HotelName { get; set; }
         public string Location { get; set; }

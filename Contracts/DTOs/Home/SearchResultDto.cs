@@ -1,6 +1,6 @@
 ﻿namespace Contracts.DTOs.Home
 {
-    public class SearchResponse
+    public class SearchResultDto
     {
         public string HotelName { get; set; }
         public string ThumbnailUrl { get; set; }

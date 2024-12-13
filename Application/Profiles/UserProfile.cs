@@ -8,8 +8,8 @@ namespace Application.Profiles
     {
         public UserProfile()
         {
-            CreateMap<RegisterRequest, User>();
-            CreateMap<User, AuthResponse>();
+            CreateMap<RegisterRequestDto, User>();
+            CreateMap<User, AuthResponseDto>();
         }
     }
 }

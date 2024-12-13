@@ -3,9 +3,9 @@ using MediatR;
 
 namespace Application.Mediator.Commands.AuthCommands
 {
-    public class LoginCommand : IRequest<AuthResponse>
+    public class LoginCommand : IRequest<AuthResponseDto>
     {
-        public LoginRequest LoginRequest { get; set; }
+        public LoginRequestDto LoginRequest { get; set; }
     }
 
 }

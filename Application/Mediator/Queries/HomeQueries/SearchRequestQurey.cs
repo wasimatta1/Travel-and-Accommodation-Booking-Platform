@@ -3,7 +3,7 @@ using MediatR;
 
 namespace Application.Mediator.Queries.HomeQueries
 {
-    public class SearchRequestQurey : IRequest<IEnumerable<SearchResponse>>
+    public class SearchRequestQurey : IRequest<IEnumerable<SearchResultDto>>
     {
         public string Query { get; set; }
         public DateTime CheckInDate { get; set; } = DateTime.Now;

@@ -3,7 +3,7 @@ using MediatR;
 
 namespace Application.Mediator.Commands.AuthCommands
 {
-    public class LogoutCommand : IRequest<AuthResponse>
+    public class LogoutCommand : IRequest<AuthResponseDto>
     {
         public string Token { get; set; }
     }

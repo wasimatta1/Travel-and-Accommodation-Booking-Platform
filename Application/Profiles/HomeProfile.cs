@@ -8,9 +8,7 @@ namespace Application.Profiles
     {
         public HomeProfile()
         {
-
-
-            CreateMap<Room, FeaturedDealResponse>()
+            CreateMap<Room, FeaturedDealDto>()
             .ForMember(dest => dest.HotelName, opt => opt.MapFrom(src => src.Hotel.Name))
             .ForMember(dest => dest.Location, opt => opt.MapFrom(src => src.Hotel.City.Country + "," + src.Hotel.City.Name))
             .ForMember(dest => dest.ThumbnailUrl, opt => opt.MapFrom(src => src.Hotel.ThumbnailURL))
@@ -21,12 +19,16 @@ namespace Application.Profiles
                     ? (1 - src.Discounts.First(d => d.StartDate <= DateTime.Now && d.EndDate >= DateTime.Now).DiscountPercentage / 100) * src.PricePerNight
                     : src.PricePerNight));
 
-            CreateMap<Booking, RecentlyVisitedResponse>()
+            CreateMap<Booking, RecentlyVisitedDto>()
                 .ForMember(dest => dest.HotelName, opt => opt.MapFrom(src => src.Rooms.First().Hotel.Name))
                 .ForMember(dest => dest.ThumbnailUrl, opt => opt.MapFrom(src => src.Rooms.First().Hotel.ThumbnailURL))
                 .ForMember(dest => dest.StarRating, opt => opt.MapFrom(src => src.Rooms.First().Hotel.StarRating))
                 .ForMember(dest => dest.City, opt => opt.MapFrom(src => src.Rooms.First().Hotel.City.Name))
                 .ForMember(dest => dest.TotalPrice, opt => opt.MapFrom(src => src.TotalPrice));
+
+            CreateMap<City, TrendingDestinationDto>()
+                .ForMember(dest => dest.City, opt => opt.MapFrom(src => src.Name))
+                .ForMember(dest => dest.ThumbnailUrl, opt => opt.MapFrom(src => src.ThumbnailURL));
 
         }
 
