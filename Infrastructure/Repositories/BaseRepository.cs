@@ -34,6 +34,26 @@ namespace Infrastructure.Repositories
             }
             return await query.Skip((pagNumber - 1) * pageSize).Take(pageSize).ToListAsync();
         }
+        public async Task<IEnumerable<T>> FindAllAsync(IEnumerable<Expression<Func<T, bool>>> criteria, string[] includes = null)
+        {
+            var query = _context.Set<T>().AsQueryable();
+            if (criteria != null)
+            {
+                foreach (var criterion in criteria)
+                {
+                    query = query.Where(criterion);
+                }
+            }
+
+            if (includes != null)
+            {
+                foreach (var include in includes)
+                {
+                    query = query.Include(include);
+                }
+            }
+            return await query.ToListAsync();
+        }
         public async Task<T?> FindAsync(Expression<Func<T, bool>> criteria, string[] includes = null)
         {
             IQueryable<T> query = _context.Set<T>();
@@ -74,6 +94,7 @@ namespace Infrastructure.Repositories
         {
             _context.Set<T>().RemoveRange(entities);
         }
+
 
     }
 }

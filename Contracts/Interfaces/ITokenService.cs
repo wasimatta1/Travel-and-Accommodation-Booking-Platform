@@ -8,8 +8,6 @@
 
         public Task<bool> ValidateRefreshToken(string token);
 
-        public Task<bool> DeleteToken(string token);
-
 
     }
 }

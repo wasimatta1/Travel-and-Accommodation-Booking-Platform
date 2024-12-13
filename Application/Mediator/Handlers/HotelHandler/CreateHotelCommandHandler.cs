@@ -47,6 +47,25 @@ namespace Application.Mediator.Handlers.HotelHandler
             await _unitOfWork.Hotels.CreateAsync(hotel);
             await _unitOfWork.CompleteAsync();
 
+            var hotelAmenities = new List<HotelAmenity>();
+            foreach (var amenityName in request.CreateHotelDto.AmenitiesName)
+            {
+                var amenity = await _unitOfWork.Amenities.FindAsync(a => a.Name == amenityName);
+                if (amenity == null)
+                {
+                    _logger.LogWarning($"Amenity with Name: {amenityName} was not found, Not Added");
+                    continue;
+                }
+                var hotelAmenity = new HotelAmenity
+                {
+                    HotelID = hotel.HotelID,
+                    AmenityID = amenity.AmenitiesID
+                };
+                hotelAmenities.Add(hotelAmenity);
+            }
+            await _unitOfWork.HotelAmenities.AddRangeAsync(hotelAmenities);
+            await _unitOfWork.CompleteAsync();
+
             _logger.LogInformation($"Hotel: {request.CreateHotelDto.Name} created successfully");
             return hotel.HotelID;
 

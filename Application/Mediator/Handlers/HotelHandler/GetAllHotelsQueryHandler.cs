@@ -31,7 +31,8 @@ namespace Application.Mediator.Handlers.HotelHandler
             {
                 "Owner",
                 "City",
-                "Rooms"
+                "Rooms",
+                "Amenities"
             };
 
             IEnumerable<Expression<Func<Hotel, bool>>> criteria = new List<Expression<Func<Hotel, bool>>>();

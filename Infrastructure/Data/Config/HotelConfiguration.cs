@@ -31,6 +31,10 @@ namespace Infrastructure.Data.Config
                 .HasForeignKey(h => h.OwnerID)
                 .OnDelete(DeleteBehavior.Cascade);
 
+            builder.HasMany(h => h.Amenities)
+                .WithMany(c => c.Hotels)
+                .UsingEntity<HotelAmenity>();
+
             builder.ToTable("Hotels");
         }
 

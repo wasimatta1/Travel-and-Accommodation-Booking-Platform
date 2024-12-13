@@ -34,6 +34,9 @@ namespace Domain.Entities
         // Navigation Properties
         public Hotel Hotel { get; set; }
         public ICollection<RoomImage> RoomImages { get; set; } = new List<RoomImage>();
+        public ICollection<Discount> Discounts { get; set; } = new List<Discount>();
+        public ICollection<BookingRoom> BookingRooms { get; set; } = new List<BookingRoom>();
+        public ICollection<Booking> bookings { get; set; } = new List<Booking>();
 
     }
 }

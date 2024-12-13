@@ -54,9 +54,47 @@ namespace Application.Mediator.Handlers.HotelHandler
             var updatedHotel = await _unitOfWork.Hotels.UpdateAsync(hotel);
             await _unitOfWork.CompleteAsync();
 
+            await ManageAmenitiesAsync(hotel, request.UpdateHotelDto.AmenitiesName);
+
             _logger.LogInformation($"Hotel with ID: {hotel.HotelID} updated successfully.");
 
             return _mapper.Map<HotelDto>(hotel);
+        }
+
+        private async Task ManageAmenitiesAsync(Hotel hotel, ICollection<string> amenities)
+        {
+            _logger.LogInformation($"Updating Amenities for Hotel ID: {hotel.HotelID}");
+
+            await _unitOfWork.HotelAmenities.DeleteRangeAsync(hotel.HotelAmenities);
+
+            if (amenities == null || amenities.Count == 0)
+            {
+                await _unitOfWork.CompleteAsync();
+                _logger.LogInformation($"Amenities for Hotel ID: {hotel.HotelID} updated successfully.");
+                return;
+            }
+            var hotelAmenities = new List<HotelAmenity>();
+            foreach (var amenityName in amenities)
+            {
+                var amenity = await _unitOfWork.Amenities.FindAsync(a => a.Name == amenityName);
+                if (amenity == null)
+                {
+                    _logger.LogWarning($"Amenity with Name: {amenityName} was not found, Not Added");
+                    continue;
+                }
+                var hotelAmenity = new HotelAmenity
+                {
+                    HotelID = hotel.HotelID,
+                    AmenityID = amenity.AmenitiesID
+                };
+
+                hotelAmenities.Add(hotelAmenity);
+            }
+
+            await _unitOfWork.HotelAmenities.AddRangeAsync(hotelAmenities);
+            await _unitOfWork.CompleteAsync();
+            _logger.LogInformation($"Amenities for Hotel ID: {hotel.HotelID} updated successfully.");
+
         }
     }
 }

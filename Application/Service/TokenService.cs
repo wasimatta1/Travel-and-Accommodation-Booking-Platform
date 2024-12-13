@@ -96,10 +96,5 @@ namespace Application.Service
             }
         }
 
-        public Task<bool> DeleteToken(string token)
-        {
-
-
-        }
     }
 }
