@@ -5,5 +5,6 @@ namespace Contracts.Interfaces.RepositoryInterfaces
     public interface IRoomRepository : IBaseRepository<Room>
     {
         Task<IEnumerable<Room>> GetFeaturedRoomsAsync(int takeNum);
+
     }
 }

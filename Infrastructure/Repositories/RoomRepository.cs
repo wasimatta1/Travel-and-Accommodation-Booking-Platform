@@ -23,5 +23,6 @@ namespace Infrastructure.Repositories
                 .Take(takeNum)
                 .ToListAsync();
         }
+
     }
 }

@@ -79,7 +79,7 @@
             <response code="204">Indicates that the city was successfully deleted.</response>
             <response code="404">If the city to delete is not found.</response>
         </member>
-        <member name="M:API.Controllers.HomeController.Search(System.String,System.String,System.String,System.Int32,System.Int32,System.Int32,System.Nullable{System.Decimal},System.Nullable{System.Int32},System.Nullable{System.Decimal},System.String,System.String[],System.Int32,System.Int32)">
+        <member name="M:API.Controllers.HomeController.Search(System.String,System.String,System.String,System.Int32,System.Int32,System.Int32,System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.Nullable{System.Int32},System.String,System.String[],System.Int32,System.Int32)">
             <summary>
             Searches for available rooms and hotels based on provided search criteria.
             </summary>
@@ -174,6 +174,21 @@
             <returns>No content if deletion is successful.</returns>
             <response code="204">Indicates that the hotel was successfully deleted.</response>
             <response code="404">If the hotel to delete is not found.</response>
+        </member>
+        <member name="M:API.Controllers.HotelPageController.GetHotelPage(System.Int32,System.String,System.String,System.Int32,System.Int32,System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.String)">
+            <summary>
+            Retrieves hotel page details including available rooms, based on the specified search criteria.
+            </summary>
+            <param name="hotelId">The unique identifier for the hotel to search for.</param>
+            <param name="checkInDate">Optional check-in date. Defaults to today's date if not provided.</param>
+            <param name="checkOutDate">Optional check-out date. Defaults to one day after the check-in date if not provided.</param>
+            <param name="adults">The number of adults for the room. Defaults to 2.</param>
+            <param name="children">The number of children for the room. Defaults to 0.</param>
+            <param name="priceMin">Optional minimum price per night for filtering the available rooms.</param>
+            <param name="priceMax">Optional maximum price per night for filtering the available rooms.</param>
+            <param name="roomType">Optional room type for filtering the available rooms.</param>
+            <returns>A hotel page including room availability based on the provided criteria.</returns>
+            <response code="200">Returns the details of the hotel and available rooms matching the search criteria.</response>
         </member>
         <member name="M:API.Controllers.RoomController.GetAllAsync(System.Int32,System.Int32,System.String,System.String,System.Nullable{System.Int32},System.Nullable{System.Int32},System.Nullable{System.Boolean})">
             <summary>
