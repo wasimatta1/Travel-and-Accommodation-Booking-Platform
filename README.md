@@ -12,6 +12,4 @@ This project is currently under development. The goal is to create a robust onli
 Stay tuned for updates as we continue to enhance features, improve performance, and solidify the platform’s architecture. Your feedback and suggestions are welcome!
 ## Contact
 
-If you have questions, ideas, or would like to collaborate, please reach out to the team via the project's issue tracker.
-
 **Thank you** for your interest  in my Project. Stay tuned for updates as we continue to build out the platform and add new features!
