@@ -11,25 +11,31 @@ namespace Infrastructure.Repositories
         {
         }
 
-        public async Task<IEnumerable<Hotel>> SearchHotels(string query, int? starRating, int pageNumber, int pageSize, string[] amenities)
+        public async Task<IEnumerable<Hotel>> SearchHotels(string query, int? starRating, int pageNumber, int pageSize,
+            string[] amenities, DateTime checkInDate, DateTime checkOutDate, int adults, int children, int rooms,
+            decimal? priceMin, decimal? priceMax, string? roomType)
         {
-            var hotelsQurey = _context.Hotels
+            var hotelsQuery = _context.Hotels
                 .Include(h => h.Amenities)
                 .Include(h => h.City)
                 .Include(h => h.Rooms)
-                .ThenInclude(r => r.bookings)
+                    .ThenInclude(r => r.bookings)
+                 .Include(h => h.Rooms)
+                    .ThenInclude(r => r.Discounts)
                 .AsQueryable();
 
-            hotelsQurey = hotelsQurey.Where(h => h.Name.Contains(query) || h.Address.Contains(query) || h.City.Name.Contains(query));
-
-            if (starRating != null)
-                hotelsQurey = hotelsQurey.Where(h => h.StarRating == starRating);
-
-            if (amenities != null && amenities.Length > 0)
-                hotelsQurey = hotelsQurey.Where(h => amenities.All(a => h.Amenities.Any(ha => ha.Name == a)));
+            hotelsQuery = hotelsQuery.Where(h => h.Name.Contains(query)
+            || h.Address.Contains(query)
+            || h.City.Name.Contains(query));
 
 
-            var hotels = await hotelsQurey
+            if (starRating.HasValue)
+                hotelsQuery = hotelsQuery.Where(h => h.StarRating == starRating);
+
+            if (amenities?.Any() == true)
+                hotelsQuery = hotelsQuery.Where(h => amenities.All(a => h.Amenities.Any(ha => ha.Name == a)));
+
+            var hotels = await hotelsQuery
                 .Select(h => new Hotel
                 {
                     HotelID = h.HotelID,
@@ -37,14 +43,68 @@ namespace Infrastructure.Repositories
                     StarRating = h.StarRating,
                     ThumbnailURL = h.ThumbnailURL,
                     Description = h.Description,
+                    City = h.City,
                     Rooms = h.Rooms
+
                 })
+                .Skip((pageNumber - 1) * pageSize)
+                .Take(pageSize)
                 .ToListAsync();
 
-            return hotels;
+            var filteredRooms = hotels.SelectMany(h => h.Rooms).Where(r =>
+                   r.Availability == true
+                && r.AdultsCapacity >= adults
+                && r.ChildrenCapacity >= children);
+
+
+            if (priceMin.HasValue)
+                filteredRooms = filteredRooms.Where(r => r.PricePerNight >= priceMin).ToList();
+
+            if (priceMax.HasValue)
+                filteredRooms = filteredRooms.Where(r => r.PricePerNight <= priceMax).ToList();
+
+            if (roomType != null)
+                filteredRooms = filteredRooms.Where(r => r.RoomType.ToString() == roomType).ToList();
+
+            filteredRooms = filteredRooms.Where(r => r.bookings.OrderBy(b => b.CheckInDate).All(b =>
+                    // Check if booking ends before requested check-in or starts after requested check-out
+                    (b.CheckOutDate <= checkInDate || b.CheckInDate >= checkOutDate) ||
+
+                    // Check for gaps between consecutive bookings
+                    r.bookings.Zip(r.bookings.Skip(1), (current, next) =>
+                        next.CheckInDate >= current.CheckOutDate && next.CheckInDate - current.CheckOutDate >= checkOutDate - checkInDate
+                    ).All(gap => gap)
+                )
+            ).ToList();
+
+
+            var groupedRooms = filteredRooms.GroupBy(r => r.HotelID).Where(g => g.Count() >= rooms);
+
+
+            foreach (var hotel in hotels)
+            {
+                var hotelRooms = groupedRooms.FirstOrDefault(g => g.Key == hotel.HotelID);
+
+                if (hotelRooms != null)
+                {
+
+                    var firstRoomWithDiscount = hotelRooms.FirstOrDefault(r =>
+                    r.Discounts.Any(d => d.StartDate <= DateTime.Now && d.EndDate >= DateTime.Now));
+
+                    if (firstRoomWithDiscount != null)
+                        hotel.Rooms = new List<Room> { firstRoomWithDiscount };
+                    else
+                        hotel.Rooms = new List<Room> { hotelRooms.FirstOrDefault() };
+
+                }
+            }
+
+            return hotels.Where(h => h.Rooms.Count() > 0);
         }
+
+
         public async Task<Hotel> GetHotelPageIdAsync(int hotelId, DateTime checkIn, DateTime checkOut,
-            int adults, int children, decimal? priceMin, decimal? priceMax, string? roomType)
+                    int adults, int children, decimal? priceMin, decimal? priceMax, string? roomType)
         {
             var hotel = await _context.Hotels
                 .Include(h => h.Reviews)

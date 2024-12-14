@@ -1,13 +1,25 @@
 ﻿using AutoMapper;
 using Contracts.DTOs.Home;
 using Domain.Entities;
-
 namespace Application.Profiles
 {
     public class HomeProfile : Profile
     {
         public HomeProfile()
         {
+            CreateMap<Hotel, SearchResultDto>()
+            .ForMember(dest => dest.HotelName, opt => opt.MapFrom(src => src.Name))
+            .ForMember(dest => dest.ThumbnailUrl, opt => opt.MapFrom(src => src.ThumbnailURL))
+            .ForMember(dest => dest.StarRating, opt => opt.MapFrom(src => src.StarRating))
+            .ForMember(dest => dest.RoomType, opt => opt.MapFrom(src => src.Rooms.First().RoomType.ToString()))
+            .ForMember(dest => dest.HotelDescription, opt => opt.MapFrom(src => src.Description))
+                .ForMember(dest => dest.PricePerNight, opt => opt.MapFrom(src => src.Rooms.First().PricePerNight))
+                .ForMember(dest => dest.PricePerNightDiscounted, opt => opt.MapFrom(src =>
+                    src.Rooms.First().Discounts.Any(d => d.StartDate <= DateTime.Now && d.EndDate >= DateTime.Now)
+                        ? (1 - src.Rooms.First().Discounts.First(d => d.StartDate <= DateTime.Now && d.EndDate >= DateTime.Now)
+                        .DiscountPercentage / 100) * src.Rooms.First().PricePerNight : src.Rooms.First().PricePerNight));
+
+
             CreateMap<Room, FeaturedDealDto>()
             .ForMember(dest => dest.HotelName, opt => opt.MapFrom(src => src.Hotel.Name))
             .ForMember(dest => dest.Location, opt => opt.MapFrom(src => src.Hotel.City.Country + "," + src.Hotel.City.Name))
