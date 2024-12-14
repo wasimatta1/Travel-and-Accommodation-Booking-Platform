@@ -79,7 +79,7 @@
             <response code="204">Indicates that the city was successfully deleted.</response>
             <response code="404">If the city to delete is not found.</response>
         </member>
-        <member name="M:API.Controllers.HomeController.Search(System.String,System.String,System.String,System.Int32,System.Int32,System.Int32,System.Nullable{System.Decimal},System.Nullable{System.Int32},System.Nullable{System.Decimal},System.String,System.String[],System.Int32,System.Int32)">
+        <member name="M:API.Controllers.HomeController.Search(System.String,System.String,System.String,System.Int32,System.Int32,System.Int32,System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.Nullable{System.Int32},System.String,System.String[],System.Int32,System.Int32)">
             <summary>
             Searches for available rooms and hotels based on provided search criteria.
             </summary>

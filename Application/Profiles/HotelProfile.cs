@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Contracts.DTOs.Hotel;
+using Contracts.DTOs.HotelPage;
 using Domain.Entities;
 
 namespace Application.Profiles
@@ -18,6 +19,14 @@ namespace Application.Profiles
             CreateMap<UpdateHotelDto, Hotel>();
             CreateMap<CreateHotelDto, Hotel>();
             CreateMap<UpdateHotelDto, HotelDto>();
+
+            CreateMap<Hotel, HotelPageDto>()
+                .ForMember(dest => dest.ImageUrl, opt => opt.MapFrom(src => src.ImageURL))
+                .ForMember(dest => dest.HotelName, opt => opt.MapFrom(src => src.Name))
+                .ForMember(dest => dest.GuestReviewsAVG, opt => opt.MapFrom(src => src.Reviews.Average(r => r.Rating)))
+                .ForMember(dest => dest.ReviewSample, opt => opt.MapFrom(src => src.Reviews.Select(r => r.Content).FirstOrDefault()))
+                .ForMember(dest => dest.Rooms, opt => opt.MapFrom(src => src.Rooms));
+
         }
     }
 }

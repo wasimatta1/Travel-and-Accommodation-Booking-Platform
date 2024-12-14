@@ -38,8 +38,8 @@ namespace API.Controllers
         [HttpGet("search")]
         [ProducesResponseType(typeof(IEnumerable<SearchResultDto>), 200)]
         public async Task<IActionResult> Search(string queryToDestination, string? checkInDate, string? checkOutDate,
-             int adults = 2, int children = 0, int rooms = 1, decimal? priceMin = null, int? starRating = null,
-             decimal? priceMax = null, string? roomType = null, [FromQuery] string[] amenities = null,
+             int adults = 2, int children = 0, int rooms = 1, decimal? priceMin = null, decimal? priceMax = null,
+             int? starRating = null, string? roomType = null, [FromQuery] string[] amenities = null,
              int pageNumber = 1, int pageSize = 10)
         {
 
