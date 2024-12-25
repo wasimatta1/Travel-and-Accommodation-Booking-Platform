@@ -24,5 +24,12 @@ namespace Infrastructure.Repositories
                 .ToListAsync();
         }
 
+        public async Task<IEnumerable<Room>> GetRoomsByIdsAsync(IEnumerable<int> roomIds)
+        {
+            return await _context.Rooms
+                .Include(r => r.Discounts)
+                .Where(r => roomIds.Contains(r.RoomID))
+                .ToListAsync();
+        }
     }
 }

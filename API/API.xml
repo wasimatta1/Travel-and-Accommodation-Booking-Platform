@@ -190,6 +190,31 @@
             <returns>A hotel page including room availability based on the provided criteria.</returns>
             <response code="200">Returns the details of the hotel and available rooms matching the search criteria.</response>
         </member>
+        <member name="M:API.Controllers.HotelPageController.AddToCart(Contracts.DTOs.HotelPage.AddRoomToCartDto)">
+            <summary>
+            Adds an item to the cart based on the provided details.
+            </summary>
+            <param name="cartItem">The details of the cart item to be added.</param>
+            <returns>A confirmation message indicating the item was added successfully.</returns>
+            <response code="200">Item successfully added to the cart.</response>
+            <response code="400">Invalid cart item provided.</response>
+        </member>
+        <member name="M:API.Controllers.HotelPageController.GetCartItems">
+            <summary>
+            Retrieves all items currently in the cart.
+            </summary>
+            <returns>A list of items in the cart.</returns>
+            <response code="200">Returns the list of cart items.</response>
+        </member>
+        <member name="M:API.Controllers.HotelPageController.RemoveFromCart(System.Int32)">
+            <summary>
+            Removes an item from the cart based on the specified room ID.
+            </summary>
+            <param name="roomId">The unique identifier of the room to be removed from the cart.</param>
+            <returns>A confirmation message if the item was removed successfully, or an error message if not found.</returns>
+            <response code="200">Item successfully removed from the cart.</response>
+            <response code="404">Item not found in the cart.</response>
+        </member>
         <member name="M:API.Controllers.RoomController.GetAllAsync(System.Int32,System.Int32,System.String,System.String,System.Nullable{System.Int32},System.Nullable{System.Int32},System.Nullable{System.Boolean})">
             <summary>
             Retrieves a paginated list of rooms with optional filtering by room number, type, adult capacity, children capacity, and availability.

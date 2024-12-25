@@ -112,6 +112,8 @@ namespace API
             builder.Services.AddScoped<ITokenService, TokenService>();
             builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
+            builder.Services.AddSingleton<ICartService, CartService>();
+
 
             builder.Services.AddControllers();
 

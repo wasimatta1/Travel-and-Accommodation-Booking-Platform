@@ -1,6 +1,8 @@
-﻿using Application.Mediator.Queries.HotelPageQueries;
+﻿using Application.Mediator.Commands.HotelPageCommands;
+using Application.Mediator.Queries.HotelPageQueries;
 using Contracts.DTOs.HotelPage;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers
@@ -57,5 +59,65 @@ namespace API.Controllers
             });
             return Ok(response);
         }
+
+        /// <summary>
+        /// Adds an item to the cart based on the provided details.
+        /// </summary>
+        /// <param name="cartItem">The details of the cart item to be added.</param>
+        /// <returns>A confirmation message indicating the item was added successfully.</returns>
+        /// <response code="200">Item successfully added to the cart.</response>
+        /// <response code="400">Invalid cart item provided.</response>
+        [HttpPost("add-to-cart")]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(400)]
+        [Authorize(Roles = "User")]
+        public async Task<IActionResult> AddToCart(AddRoomToCartDto cartItem)
+        {
+            var response = await _mediator.Send(new AddToCartCommand
+            {
+                CartItem = cartItem
+            });
+            if (!response)
+                return BadRequest("Room already in the cart.");
+            return Ok("Room added to cart successfully.");
+        }
+
+        /// <summary>
+        /// Retrieves all items currently in the cart.
+        /// </summary>
+        /// <returns>A list of items in the cart.</returns>
+        /// <response code="200">Returns the list of cart items.</response>
+        [HttpGet("get-cart-rooms")]
+        [ProducesResponseType(typeof(IEnumerable<AddRoomToCartDto>), 200)]
+        [Authorize(Roles = "User")]
+        public async Task<IActionResult> GetCartItems()
+        {
+            var response = await _mediator.Send(new GetCartItemsQuery());
+            return Ok(response);
+        }
+
+        /// <summary>
+        /// Removes an item from the cart based on the specified room ID.
+        /// </summary>
+        /// <param name="roomId">The unique identifier of the room to be removed from the cart.</param>
+        /// <returns>A confirmation message if the item was removed successfully, or an error message if not found.</returns>
+        /// <response code="200">Item successfully removed from the cart.</response>
+        /// <response code="404">Item not found in the cart.</response>
+        [HttpDelete("remove-from-cart")]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(404)]
+        [Authorize(Roles = "User")]
+        public async Task<IActionResult> RemoveFromCart(int roomId)
+        {
+            var response = await _mediator.Send(new RemoveFromCartCommand
+            {
+                RoomId = roomId
+            });
+            if (!response)
+                return NotFound("Room not found in the cart.");
+            return Ok("Room removed from cart successfully.");
+        }
+
+
     }
 }
