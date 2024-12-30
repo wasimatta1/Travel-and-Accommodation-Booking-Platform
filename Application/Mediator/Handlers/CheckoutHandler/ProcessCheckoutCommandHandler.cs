@@ -97,6 +97,8 @@ namespace Application.Mediator.Handlers.CheckoutHandler
                     bookingConfirmationDto.CheckOutDate = firstItem.CheckOutDate;
 
                     await transaction.CommitAsync();
+                    _cacheService.Set("bookingConfirmationDto", bookingConfirmationDto);
+
                     return bookingConfirmationDto;
                 }
                 catch (Exception ex)

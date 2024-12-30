@@ -30,6 +30,23 @@
             <response code="200">Returns a success message upon successful logout.</response>
             <response code="400">Returns an error message if logout fails.</response>
         </member>
+        <member name="M:API.Controllers.CheckoutController.ProcessCheckout(Application.Mediator.Commands.CheckoutCommands.ProcessCheckoutCommand)">
+            <summary>
+            Processes the checkout request and generates the booking confirmation.
+            </summary>
+            <param name="processCheckoutCommand">The details of the checkout request.</param>
+            <returns>A response indicating the success or failure of the checkout process.</returns>
+            <response code="200">Indicates that the checkout was successfully processed.</response>
+            <response code="400">If the checkout request is invalid or fails.</response>
+        </member>
+        <member name="M:API.Controllers.CheckoutController.DownloadBookingConfirmation">
+            <summary>
+            Downloads the booking confirmation as a PDF.
+            </summary>
+            <returns>The booking confirmation PDF file.</returns>
+            <response code="200">Returns the booking confirmation PDF file.</response>
+            <response code="400">If the PDF generation fails.</response>
+        </member>
         <member name="M:API.Controllers.CityController.GetAllAsync(System.Int32,System.Int32,System.String,System.String,System.String)">
             <summary>
             Retrieves a paginated list of cities with optional filtering by city name, country, and post office code.
