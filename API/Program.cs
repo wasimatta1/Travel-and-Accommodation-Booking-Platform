@@ -115,7 +115,8 @@ namespace API
             builder.Services.AddSingleton<ICartService, CartService>();
             builder.Services.AddMemoryCache();
             builder.Services.AddSingleton<ICacheService, CacheService>();
-            builder.Services.AddSingleton<IPdfGeneratorService, PdfGeneratorService>();
+            builder.Services.AddTransient<IPdfGeneratorService, PdfGeneratorService>();
+            builder.Services.AddTransient<IEmailService, EmailService>();
 
 
             builder.Services.AddControllers();

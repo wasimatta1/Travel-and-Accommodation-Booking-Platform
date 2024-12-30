@@ -24,6 +24,7 @@ namespace Application.Mediator.Handlers.CheckoutHandler
         private readonly ICacheService _cacheService;
         private readonly UserManager<User> _userManger;
         private readonly IHttpContextAccessor _httpContextAccessor;
+        private readonly IEmailService _emailService;
 
         public ProcessCheckoutCommandHandler(
             ILogger<ProcessCheckoutCommandHandler> logger,
@@ -32,7 +33,8 @@ namespace Application.Mediator.Handlers.CheckoutHandler
             ICartService cartService,
             ICacheService cacheService,
             UserManager<User> userManger,
-            IHttpContextAccessor httpContextAccessor)
+            IHttpContextAccessor httpContextAccessor,
+            IEmailService emailService)
         {
             _logger = logger;
             _mapper = mapper;
@@ -41,6 +43,7 @@ namespace Application.Mediator.Handlers.CheckoutHandler
             _cacheService = cacheService;
             _userManger = userManger;
             _httpContextAccessor = httpContextAccessor;
+            _emailService = emailService;
         }
 
         public async Task<BookingConfirmationDto?> Handle(ProcessCheckoutCommand request, CancellationToken cancellationToken)
@@ -97,12 +100,24 @@ namespace Application.Mediator.Handlers.CheckoutHandler
                     bookingConfirmationDto.CheckOutDate = firstItem.CheckOutDate;
 
                     await transaction.CommitAsync();
-                    _cacheService.Set("bookingConfirmationDto", bookingConfirmationDto);
+
+                    string invoiceDetails =
+                         $"Hotel Name: {hotel.Name}\n" +
+                         $"Check In Date: {firstItem.CheckInDate}\n" +
+                         $"Check Out Date: {firstItem.CheckOutDate}\n" +
+                         $"Total Price: {booking.TotalPrice}\n" +
+                         $"Payment Method: {payment.PaymentMethod}\n";
+
+                    await SendBookingConfirmationEmailAsync(user.Email!, "Booking Confirmation", "Your booking has been confirmed " +
+                        "with the following details:\n" + invoiceDetails);
 
                     return bookingConfirmationDto;
                 }
                 catch (Exception ex)
                 {
+                    await SendBookingConfirmationEmailAsync(user.Email!, "Booking Failed", "Your booking has failed. Please Check " +
+                        "your payment details or balance and try again.");
+
                     _logger.LogError(ex, "An error occurred during checkout. Rolling back transaction.");
                     await transaction.RollbackAsync();
                     throw;
@@ -205,6 +220,10 @@ namespace Application.Mediator.Handlers.CheckoutHandler
             await _unitOfWork.CompleteAsync();
 
             return payment;
+        }
+        private async Task SendBookingConfirmationEmailAsync(string email, string subject, string message)
+        {
+            await _emailService.SendEmailAsync(email, subject, message);
         }
     }
 }
