@@ -1,4 +1,6 @@
-﻿namespace Contracts.Interfaces.RepositoryInterfaces
+﻿using Microsoft.EntityFrameworkCore.Storage;
+
+namespace Contracts.Interfaces.RepositoryInterfaces
 {
     public interface IUnitOfWork
     {
@@ -11,7 +13,10 @@
         public IHotelAmenityRepository HotelAmenities { get; }
         public IAmenityRepository Amenities { get; }
         public IDiscountRepository Discounts { get; }
-
+        public IPaymentRepository Payments { get; }
+        public Task<IDbContextTransaction> BeginTransactionAsync();
+        public Task CommitAsync();
+        public Task RollbackAsync();
         public Task<int> CompleteAsync();
     }
 }
