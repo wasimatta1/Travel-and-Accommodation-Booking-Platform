@@ -16,6 +16,7 @@ namespace Infrastructure.Data
         public DbSet<Amenity> Amenities { get; set; }
         public DbSet<HotelAmenity> HotelAmenities { get; set; }
         public DbSet<Review> Reviews { get; set; }
+        public DbSet<Payment> Payments { get; set; }
 
 
         public DbSet<RoomImage> RoomImages { get; set; }

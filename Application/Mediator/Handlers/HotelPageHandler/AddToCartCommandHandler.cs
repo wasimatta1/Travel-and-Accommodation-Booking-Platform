@@ -1,5 +1,6 @@
 ﻿using Application.Mediator.Commands.HotelPageCommands;
 using Contracts.Interfaces;
+using Contracts.Interfaces.RepositoryInterfaces;
 using MediatR;
 using Microsoft.Extensions.Logging;
 
@@ -9,11 +10,13 @@ namespace Application.Mediator.Handlers.HotelPageHandler
     {
         private readonly ICartService _cartService;
         private readonly ILogger<AddToCartCommandHandler> _logger;
+        private readonly IUnitOfWork _unitOfWork;
 
-        public AddToCartCommandHandler(ICartService cartService, ILogger<AddToCartCommandHandler> logger)
+        public AddToCartCommandHandler(ICartService cartService, ILogger<AddToCartCommandHandler> logger, IUnitOfWork unitOfWork)
         {
             _cartService = cartService ?? throw new ArgumentNullException(nameof(cartService));
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
+            _unitOfWork = unitOfWork;
         }
 
         public async Task<bool> Handle(AddToCartCommand request, CancellationToken cancellationToken)
@@ -28,6 +31,17 @@ namespace Application.Mediator.Handlers.HotelPageHandler
             {
                 _logger.LogWarning($"Attempted to add an item that is already in the cart. RoomId: {request.CartItem.RoomId}");
                 return false;
+            }
+            var firstItem = cartItems.FirstOrDefault();
+            if (firstItem != null)
+            {
+                var requstedRoom = await _unitOfWork.Rooms.GetByIdAsync(request.CartItem.RoomId);
+                var firstRoom = await _unitOfWork.Rooms.GetByIdAsync(firstItem.RoomId);
+                if (requstedRoom!.HotelID != firstRoom!.HotelID)
+                {
+                    _logger.LogWarning($"Attempted to add an item from a different hotel.");
+                    return false;
+                }
             }
 
             _cartService.AddToCart(request.CartItem);

@@ -29,6 +29,8 @@ namespace Application.Profiles
                     src.Discounts.Any(d => d.StartDate <= DateTime.Now && d.EndDate >= DateTime.Now)
                         ? (1 - src.Discounts.First(d => d.StartDate <= DateTime.Now && d.EndDate >= DateTime.Now).DiscountPercentage / 100) * src.PricePerNight
                         : src.PricePerNight));
+
+            CreateMap<Room, RoomDetailsDto>();
         }
     }
 }

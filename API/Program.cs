@@ -113,6 +113,8 @@ namespace API
             builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
             builder.Services.AddSingleton<ICartService, CartService>();
+            builder.Services.AddMemoryCache();
+            builder.Services.AddSingleton<ICacheService, CacheService>();
 
 
             builder.Services.AddControllers();
