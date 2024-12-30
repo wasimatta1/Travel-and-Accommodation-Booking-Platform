@@ -39,7 +39,7 @@
             <response code="200">Indicates that the checkout was successfully processed.</response>
             <response code="400">If the checkout request is invalid or fails.</response>
         </member>
-        <member name="M:API.Controllers.CheckoutController.DownloadBookingConfirmation">
+        <member name="M:API.Controllers.CheckoutController.DownloadBookingConfirmation(Application.Mediator.Commands.CheckoutCommands.GenerateBookingConfirmationPDFCommand)">
             <summary>
             Downloads the booking confirmation as a PDF.
             </summary>

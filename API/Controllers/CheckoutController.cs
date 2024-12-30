@@ -1,5 +1,4 @@
 ﻿using Application.Mediator.Commands.CheckoutCommands;
-using Application.Mediator.Queries.CheckoutQueries;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -43,12 +42,13 @@ namespace API.Controllers
         /// <returns>The booking confirmation PDF file.</returns>
         /// <response code="200">Returns the booking confirmation PDF file.</response>
         /// <response code="400">If the PDF generation fails.</response>
-        [HttpGet("download-booking-confirmation")]
+        [HttpPost("download-booking-confirmation")]
         [ProducesResponseType(typeof(byte[]), 200)]
         [ProducesResponseType(400)]
-        public async Task<IActionResult> DownloadBookingConfirmation()
+        public async Task<IActionResult> DownloadBookingConfirmation(
+            GenerateBookingConfirmationPDFCommand generateBookingConfirmationPDFCommand)
         {
-            var pdfData = await _mediator.Send(new GenerateBookingConfirmationPDFQueries());
+            var pdfData = await _mediator.Send(generateBookingConfirmationPDFCommand);
             if (pdfData == null)
                 return BadRequest("Failed to generate PDF.");
 
