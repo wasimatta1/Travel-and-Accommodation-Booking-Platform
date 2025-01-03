@@ -81,35 +81,5 @@ This project is a comprehensive solution designed to streamline the online booki
   - **Create Button**: Opens a form for creating new Cities, Hotels, or Rooms.
   - **Entity Update Form**: Accessible by clicking on any grid row for editing existing cities, hotels, or rooms.
 
----
-
-## Technical Requirements
-
-### 1. **API Design**
-- The platform is built around **RESTful principles** for API design.
-- Each endpoint is clearly defined and well-documented.
-
-### 2. **Clean Code Practices**
-- Code is written to be **readable, maintainable**, and follows standard coding conventions.
-- Consistent **naming conventions**, **code structuring**, and **comments** are used throughout the project.
-
-### 3. **Efficient Data Handling**
-- Data storage, retrieval, and manipulation are optimized for **performance** and **scalability**.
-- Avoidance of memory leaks and unnecessary processing.
-
-### 4. **Error Handling and Logging**
-- Comprehensive **error handling** for managing exceptions gracefully.
-- **Logging** is implemented for tracking errors, user actions, and system behavior for easier debugging.
-
-### 5. **JWT Authentication**
-- **JWT Authentication** is used for secure session management.
-- Tokens are stored and transmitted securely.
-
-### 6. **User Permissions Management**
-- Role-based access control (RBAC) is implemented for controlling user access to different parts of the application.
-
-### 7. **Unit and Integration Testing**
-- **Unit tests** are implemented for validating functionality.
-- **Integration tests** are performed to ensure end-to-end system behavior.
 
 
