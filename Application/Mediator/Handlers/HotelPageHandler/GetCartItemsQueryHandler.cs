@@ -28,6 +28,10 @@ namespace Application.Mediator.Handlers.HotelPageHandler
             _logger.LogInformation("GetCartItemsQueryHandler.Handle called");
 
             var cartItems = _cartService.GetCartItems();
+            if (cartItems == null || !cartItems.Any())
+            {
+                return new List<CartItemDto>();
+            }
 
             var roomsIds = cartItems.Select(x => x.RoomId).ToList();
 

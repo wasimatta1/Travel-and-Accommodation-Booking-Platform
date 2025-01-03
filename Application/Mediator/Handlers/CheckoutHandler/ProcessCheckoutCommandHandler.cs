@@ -11,7 +11,7 @@ using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Logging;
-using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
 
 namespace Application.Mediator.Handlers.CheckoutHandler
 {
@@ -127,18 +127,7 @@ namespace Application.Mediator.Handlers.CheckoutHandler
 
         private async Task<User?> GetUserFromTokenAsync()
         {
-            var token = _httpContextAccessor.HttpContext?.Request.Headers["Authorization"].ToString()?.Replace("Bearer ", "");
-
-            if (string.IsNullOrEmpty(token))
-            {
-                _logger.LogWarning("Token was not found");
-                return null;
-            }
-
-            var tokenHandler = new JwtSecurityTokenHandler();
-            var jwtToken = tokenHandler.ReadJwtToken(token);
-
-            var email = jwtToken.Claims.FirstOrDefault(c => c.Type == JwtRegisteredClaimNames.Email)?.Value;
+            var email = _httpContextAccessor.HttpContext!.User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Email)!.Value;
 
             if (string.IsNullOrEmpty(email))
             {
