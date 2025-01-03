@@ -81,5 +81,8 @@ This project is a comprehensive solution designed to streamline the online booki
   - **Create Button**: Opens a form for creating new Cities, Hotels, or Rooms.
   - **Entity Update Form**: Accessible by clicking on any grid row for editing existing cities, hotels, or rooms.
 
+## Schema
+
+![image](https://github.com/user-attachments/assets/975fedf0-e12d-4a8a-b9d0-4c6d6198557f)
 
 
