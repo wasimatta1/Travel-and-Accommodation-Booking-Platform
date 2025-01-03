@@ -55,7 +55,7 @@ namespace Application.Mediator.Handlers.AuthHandler
                 {
                     IsSuccess = false,
                     Message = "User registration successful, but role assignment failed. User has been removed.",
-                    Errors = result.Errors.Select(e => e.Description)
+                    Errors = roleResult.Errors.Select(e => e.Description)
                 };
             }
 

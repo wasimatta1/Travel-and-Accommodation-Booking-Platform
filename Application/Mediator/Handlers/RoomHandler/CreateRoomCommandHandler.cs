@@ -46,11 +46,11 @@ namespace Application.Mediator.Handlers.RoomHandler
                 };
                 roomImages.Add(roomImage);
             }
-
-            await _unitOfWork.RoomImages.AddRangeAsync(roomImages);
-
-
-            await _unitOfWork.CompleteAsync();
+            if (roomImages.Count > 0)
+            {
+                await _unitOfWork.RoomImages.AddRangeAsync(roomImages);
+                await _unitOfWork.CompleteAsync();
+            }
 
             _logger.LogInformation($"Room: {request.CreateRoomDto.RoomNumber} created successfully");
             return room.RoomID;
